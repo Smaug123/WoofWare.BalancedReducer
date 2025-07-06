@@ -1,5 +1,9 @@
 # WoofWare.BalancedReducer
 
+[![NuGet version](https://img.shields.io/nuget/v/WoofWare.BalancedReducer.svg?style=flat-square)](https://www.nuget.org/packages/WoofWare.BalancedReducer)
+[![GitHub Actions status](https://github.com/Smaug123/WoofWare.BalancedReducer/actions/workflows/dotnet.yaml/badge.svg)](https://github.com/Smaug123/WoofWare.BalancedReducer/actions?query=branch%3Amain)
+[![License file](https://img.shields.io/github/license/Smaug123/WoofWare.BalancedReducer)](./LICENCE.md)
+
 This is the balanced reducer from [janestreet/core_kernel](https://github.com/janestreet/core_kernel/tree/774a6821b14cbcdcde02cbbca1984ea32bf06184/balanced_reducer).
 
 To quote the original documentation:
