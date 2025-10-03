@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
       <TargetFramework>netstandard2.0</TargetFramework>
       <GenerateDocumentationFile>true</GenerateDocumentationFile>
-      <Authors>Patrick Stevens</Authors>
+      <Authors>PatrickStevens</Authors>
       <Copyright>Copyright (c) Patrick Stevens 2025</Copyright>
       <Description>A single-module library with a data structure that incrementally maintains the result of folding an associative operation over a mutable fixed-length sequence as its elements change.</Description>
       <RepositoryType>git</RepositoryType>
