@@ -60,14 +60,6 @@ module BalancedReducer =
         (* The leaves occur after the branches in the array. *)
         rotatedIndex + numBranches t
 
-    let getLeaf (t : BalancedReducer<'a>) (i : int) : 'a option =
-        let index = leafIndex t i
-
-        if index < 0 || index >= t.Data.Length then
-            raise (IndexOutOfRangeException ())
-
-        t.Data.[index]
-
     let ceilPow2 x =
         if x <= 1 then
             1
