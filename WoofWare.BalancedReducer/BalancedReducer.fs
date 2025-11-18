@@ -1,6 +1,7 @@
 namespace WoofWare.BalancedReducer
 
 open System
+open System.Collections
 
 (* The [data] array is an implicit binary tree with [children_length * 2 - 1] nodes,
    with each node being the sum of the two child nodes and the root node being the 0th
@@ -22,7 +23,8 @@ open System
    index in [| o; o; c; a; b |]. *)
 type BalancedReducer<'a> =
     {
-        Data : 'a option array
+        Values : 'a array
+        IsSet : BitArray
         NumLeaves : int
         NumLeavesNotInBottomLevel : int
         Reduce : 'a -> 'a -> 'a
@@ -78,10 +80,13 @@ module BalancedReducer =
 
         let numBranches = len - 1
         let numLeavesNotInBottomLevel = ceilPow2 len - len
-        let data = Array.replicate (numBranches + len) None
+        let arraySize = numBranches + len
+        let values = Array.create arraySize Unchecked.defaultof<'a>
+        let isSet = BitArray arraySize
 
         {
-            Data = data
+            Values = values
+            IsSet = isSet
             NumLeaves = len
             NumLeavesNotInBottomLevel = numLeavesNotInBottomLevel
             Reduce = reduce
@@ -98,55 +103,60 @@ module BalancedReducer =
 
     let set (reducer : BalancedReducer<'a>) (i : int) (newValue : 'a) : unit =
         validateIndex reducer i
-        let data = reducer.Data
+        let values = reducer.Values
+        let isSet = reducer.IsSet
         let mutable i = leafIndex reducer i
-        data.[i] <- Some newValue
+        values.[i] <- newValue
+        isSet.[i] <- true
 
         while i <> 0 do
             let parent = parentIndex i
 
-            match data.[parent] with
-            | None -> i <- 0
-            | Some _ ->
-                data.[parent] <- None
+            if not isSet.[parent] then
+                i <- 0
+            else
+                isSet.[parent] <- false
                 i <- parent
 
     let get (t : BalancedReducer<'a>) (i : int) : 'a =
         validateIndex t i
+        let leafIdx = leafIndex t i
 
-        match t.Data.[leafIndex t i] with
-        | None -> raise (InvalidOperationException $"no value was ever set at index %i{i} for get operation")
-        | Some s -> s
+        if not t.IsSet.[leafIdx] then
+            raise (InvalidOperationException $"no value was ever set at index %i{i} for get operation")
+
+        t.Values.[leafIdx]
 
     let rec compute' (t : BalancedReducer<'a>) (i : int) : 'a =
-        if i < 0 || i >= t.Data.Length then
+        if i < 0 || i >= t.Values.Length then
             raise (IndexOutOfRangeException $"index %i{i} out of bounds")
 
-        match t.Data.[i] with
-        | Some d -> d
-        | None ->
+        if t.IsSet.[i] then
+            t.Values.[i]
+        else
             let left = leftChildIndex i
             let right = rightChildIndex left
 
-            if left >= t.Data.Length then
+            if left >= t.Values.Length then
                 raise (InvalidOperationException "attempted to compute balanced reducer with unset elements")
 
             let a = t.Reduce (compute' t left) (compute' t right)
-            t.Data.[i] <- Some a
+            t.Values.[i] <- a
+            t.IsSet.[i] <- true
             a
 
     let compute (t : BalancedReducer<'a>) = compute' t 0
 
     let invariant t =
-        let data = t.Data
+        let isSet = t.IsSet
 
         for i = 0 to numBranches t - 1 do
             let left = leftChildIndex i
             let right = rightChildIndex left
-            let leftIsNone = data.[left].IsNone
-            let rightIsNone = data.[right].IsNone
+            let leftIsNotSet = not isSet.[left]
+            let rightIsNotSet = not isSet.[right]
 
-            if data.[i].IsSome then
-                assert (not (leftIsNone || rightIsNone))
+            if isSet.[i] then
+                assert (not (leftIsNotSet || rightIsNotSet))
             else
-                assert (indexIsLeaf t left || indexIsLeaf t right || leftIsNone || rightIsNone)
+                assert (indexIsLeaf t left || indexIsLeaf t right || leftIsNotSet || rightIsNotSet)
