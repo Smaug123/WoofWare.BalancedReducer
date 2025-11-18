@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <Compile Include="TestBalancedReducer.fs" />
+        <Compile Include="TestBalancedReducerProperties.fs" />
         <Compile Include="TestSurface.fs" />
     </ItemGroup>
 
