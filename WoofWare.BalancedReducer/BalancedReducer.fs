@@ -18,7 +18,7 @@ open System.Collections
       a   b
    v}
 
-   We want this tree to be representated as [| o; o; c; a; b |], i.e. we need to apply
+   We want this tree to be represented as [| o; o; c; a; b |], i.e. we need to apply
    first a rotation then a translation to convert an index in [| a; b; c |] to a (leaf)
    index in [| o; o; c; a; b |]. *)
 type BalancedReducer<'a> =

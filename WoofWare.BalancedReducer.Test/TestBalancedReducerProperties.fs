@@ -18,9 +18,9 @@ module TestBalancedReducerProperties =
 
         br
 
-    /// Property: For associative operations, BalancedReducer.compute should equal List.fold
+    /// Property: For associative operations, BalancedReducer.compute should equal List.reduce
     [<Test>]
-    let ``BalancedReducer with addition equals List.fold`` () =
+    let ``BalancedReducer with addition equals List.reduce`` () =
         let property (v1 : int) (values : int list) =
             let values = v1 :: values
             let br = populateReducer (+) values
@@ -31,10 +31,10 @@ module TestBalancedReducerProperties =
         Check.One (config, property)
 
     [<Test>]
-    let ``BalancedReducer with multiplication equals List.fold`` () =
+    let ``BalancedReducer with multiplication equals List.reduce`` () =
         let property (v1 : int8) (values : int8 list) =
             let values = v1 :: values
-            // Use int8 to avoid overflow issues with multiplication
+            // Use int8 to keep test cases small; both sides overflow identically
             let br = populateReducer (*) values
             let brResult = BalancedReducer.compute br
             let foldResult = List.reduce (*) values
@@ -43,7 +43,7 @@ module TestBalancedReducerProperties =
         Check.One (config, property)
 
     [<Test>]
-    let ``BalancedReducer with string concatenation equals List.fold`` () =
+    let ``BalancedReducer with string concatenation equals List.reduce`` () =
         let property (v1 : string) (values : string list) =
             let values = v1 :: values
             let br = populateReducer (+) values
@@ -54,7 +54,7 @@ module TestBalancedReducerProperties =
         Check.One (config, property)
 
     [<Test>]
-    let ``BalancedReducer with list concatenation equals List.fold`` () =
+    let ``BalancedReducer with list concatenation equals List.reduce`` () =
         let property (v1 : int list) (values : int list list) =
             let values = v1 :: values
             let br = populateReducer (@) values
