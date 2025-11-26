@@ -60,6 +60,8 @@
           testProjectFile = "./WoofWare.BalancedReducer.Test/WoofWare.BalancedReducer.Test.fsproj";
           nugetDeps = ./nix/deps.json; # `nix build .#default.fetch-deps && ./result nix/deps.json`
           doCheck = true;
+          dontPublish = true;
+          packNupkg = true;
         };
       };
       devShell = pkgs.mkShell {
