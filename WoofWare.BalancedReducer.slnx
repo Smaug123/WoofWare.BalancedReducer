@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WoofWare.BalancedReducer.Test/WoofWare.BalancedReducer.Test.fsproj" />
+  <Project Path="WoofWare.BalancedReducer/WoofWare.BalancedReducer.fsproj" />
+</Solution>
