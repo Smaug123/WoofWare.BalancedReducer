@@ -4,6 +4,12 @@
 [![GitHub Actions status](https://github.com/Smaug123/WoofWare.BalancedReducer/actions/workflows/dotnet.yaml/badge.svg)](https://github.com/Smaug123/WoofWare.BalancedReducer/actions?query=branch%3Amain)
 [![License file](https://img.shields.io/github/license/Smaug123/WoofWare.BalancedReducer)](./LICENCE.md)
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="logos/dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="logos/light.svg">
+  <img alt="Project logo: minimalistic face of a cartoon Shiba Inu. Its left side is friendly and floppy-eared; its right-hand side is wolfish and more angular. From the bottom of the face hang two unbalanced representations of an arm of a binary tree." src="logos/light.svg" width="300">
+</picture>
+
 This is the balanced reducer from [janestreet/core_kernel](https://github.com/janestreet/core_kernel/tree/774a6821b14cbcdcde02cbbca1984ea32bf06184/balanced_reducer).
 
 To quote the original documentation:
