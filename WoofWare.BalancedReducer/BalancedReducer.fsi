@@ -32,6 +32,10 @@ module BalancedReducer =
 
     /// <summary>
     /// Compute the value of the fold which the reducer is expressing.
+    ///
+    /// If this throws due to unset elements, some internal caches may have been populated for subtrees
+    /// that were successfully computed before the error. These cached values remain valid and will be
+    /// properly invalidated by subsequent <c>set</c> calls.
     /// </summary>
     /// <exception cref="InvalidOperationException">Throws if any values of the underlying array are None.</exception>
     val compute : BalancedReducer<'a> -> 'a
