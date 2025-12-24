@@ -74,9 +74,15 @@ module BalancedReducer =
             n <- n ||| (n >>> 16)
             n + 1
 
+    // Maximum length that won't overflow: arraySize = 2*len - 1, so len <= (Int32.MaxValue + 1) / 2 = 2^30
+    let private maxLength = 1 <<< 30
+
     let create len reduce =
         if len < 1 then
             raise (ArgumentException $"non-positive number of leaves {len} in balanced reducer")
+
+        if len > maxLength then
+            raise (ArgumentException $"length {len} exceeds maximum supported length {maxLength} in balanced reducer")
 
         let numBranches = len - 1
         let numLeavesNotInBottomLevel = ceilPow2 len - len
