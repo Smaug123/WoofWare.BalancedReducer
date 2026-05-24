@@ -1,7 +1,7 @@
 # WoofWare.BalancedReducer
 
 [![NuGet version](https://img.shields.io/nuget/v/WoofWare.BalancedReducer.svg?style=flat-square)](https://www.nuget.org/packages/WoofWare.BalancedReducer)
-[![GitHub Actions status](https://github.com/Smaug123/WoofWare.BalancedReducer/actions/workflows/dotnet.yaml/badge.svg)](https://github.com/Smaug123/WoofWare.BalancedReducer/actions?query=branch%3Amain)
+[![GitHub Actions status](https://github.com/Smaug123/WoofWare.BalancedReducer/actions/workflows/ci.yaml/badge.svg)](https://github.com/Smaug123/WoofWare.BalancedReducer/actions?query=branch%3Amain)
 [![License file](https://img.shields.io/github/license/Smaug123/WoofWare.BalancedReducer)](./LICENCE.md)
 
 <picture>
